@@ -1,0 +1,53 @@
+#!/usr/bin/gnuplot 
+
+# -- Represent the 2D image simulated with SOPPE:
+#    The name of the data file must be "soppe_image.dat".
+#     To use log scale I can calculate "-log10($1)" or press "l" after clicking the graphic.
+
+set size ratio -1
+# Determine voxel color from corner left-bottom:
+set pm3d map corners2color c1
+set palette gray negative
+
+set title "Simulated image: ALL particles [eV/cm^2 per x-ray]"
+
+set title "Simulated image: NON-SCATTERED particles [eV/cm^2 per x-ray]"
+
+set title "Simulated image: ALL SCATTER [eV/cm^2 per x-ray]"
+
+set title "Simulated image: COMPTON particles [eV/cm^2 per x-ray]"
+
+set title "Simulated image: RAYLEIGH particles [eV/cm^2 per x-ray]"
+
+set title "Simulated image: MULTIPLE-SCATTERED particles [eV/cm^2 per x-ray]"
+
+
+#########################
+#  OUTPUT png IMAGES:
+
+set terminal png large size 2000,1000 crop
+
+set output 'soppe_image.png'
+set title "Simulated image: ALL particles [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using ($1+$2+$3+$4) notitle
+
+set output 'soppe_image_NonScattered.png'
+set title "Simulated image: NON-SCATTERED particles [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using 1 notitle
+
+set output 'soppe_image_AllScatter.png'
+set title "Simulated image: ALL SCATTER [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using ($2+$3+$4) notitle
+
+set output 'soppe_image_Compton.png'
+set title "Simulated image: COMPTON particles [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using 2 notitle
+
+set output 'soppe_image_Rayleigh.png'
+set title "Simulated image: RAYLEIGH particles [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using 3 notitle
+
+set output 'soppe_image_MultipleScatter.png'
+set title "Simulated image: MULTIPLE-SCATTERED particles [eV/cm^2 per x-ray]"
+splot "soppe_image.dat" using 4 notitle
+ 
